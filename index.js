@@ -26,7 +26,7 @@ const xmlActionGroup = (xml) => {
             }
         }
 
-        document.querySelector('#test').innerHTML = output
+        document.querySelector('#test').innerHTML = output;
         // console.log(output)
     }
 
