@@ -27,7 +27,7 @@ const xmlActionGroup = (xml) => {
         }
 
         document.querySelector('#test').innerHTML = output;
-        // console.log(output)
+        console.log(output)
     }
 
     // małopolskie
