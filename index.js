@@ -37,8 +37,16 @@ const xmlActionGroup = (xml) => {
             while (result) {
                 console.log(result)
                 if (path.endsWith('/NAZWA')) cities.push(result.childNodes[0].nodeValue)
-                if (path.endsWith('/POW')) county.push(result.childNodes[0].nodeValue)
+                if (path.endsWith('/POW')) {
+                    execute("//row[NAZWA_DOD='powiat' and POW='" + result.childNodes[0].nodeValue + "']/NAZWA")
+                    county.push(result.childNodes[0].nodeValue)
+                }
                 if (path.endsWith('/WOJ')) voivodeship.push(result.childNodes[0].nodeValue)
+
+                if (path.endsWith("']/NAZWA")) {
+
+                }
+
                 result = nodes.iterateNext()
                 index++;
             }
@@ -47,7 +55,7 @@ const xmlActionGroup = (xml) => {
         document.querySelector('#test').innerHTML = ''
         if (city.value.length > 0) {
             for (let i = 0; i < index; i++) {
-                document.querySelector('#test').innerHTML += cities[i] + ', ' + administration[i] + '<br />'
+                document.querySelector('#test').innerHTML += cities[i] + ', ' + county[i] + ', ' + voivodeship[i] + '<br />'
             }
         }
         console.log(cities, county, voivodeship)
