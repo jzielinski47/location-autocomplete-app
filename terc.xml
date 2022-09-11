@@ -14284,7 +14284,7 @@
       <NAZWA_DOD>miasto na prawach powiatu</NAZWA_DOD>
       <STAN_NA>2022-01-01</STAN_NA>
     </row>
-    <!-- <row>
+    <row>
       <WOJ>12</WOJ>
       <POW>61</POW>
       <GMI>01</GMI>
@@ -14292,7 +14292,7 @@
       <NAZWA>Kraków</NAZWA>
       <NAZWA_DOD>gmina miejska</NAZWA_DOD>
       <STAN_NA>2022-01-01</STAN_NA>
-    </row> -->
+    </row>
     <row>
       <WOJ>12</WOJ>
       <POW>61</POW>

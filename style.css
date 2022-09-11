@@ -84,7 +84,6 @@ label,
     border: none;
     outline: none;
     background: inherit;
-
 }
 
 .icon {
@@ -107,6 +106,10 @@ button#next {
     background: var(--primary-color);
     padding: 5px 55px;
     border-radius: 8px;
+}
+
+button#next:hover {
+    background-color: #e4b50d;
 }
 
 footer {

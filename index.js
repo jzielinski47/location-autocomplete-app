@@ -1,5 +1,7 @@
 // copyright Jakub Zieliński (github.com/jzielinski47)
 
+
+
 const establishConnection = () => {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -16,6 +18,9 @@ const xmlActionGroup = (xml) => {
 
     const city = document.querySelector('#city')
 
+    let cities = []
+    let administration = []
+
     const execute = (path) => {
         let output = "";
         if (xml.evaluate) {
@@ -23,7 +28,8 @@ const xmlActionGroup = (xml) => {
             let result = nodes.iterateNext();
             while (result) {
                 console.log(result)
-                output += result.childNodes[0].nodeValue + '<br />'
+                if (path.endsWith('/NAZWA')) cities.push(result.childNodes[0].nodeValue)
+                if (path.endsWith('/NAZWA_DOD')) administration.push(result.childNodes[0].nodeValue)
                 result = nodes.iterateNext()
             }
         }
@@ -52,9 +58,12 @@ const xmlActionGroup = (xml) => {
         content = content.toString().charAt(0).toUpperCase() + content.toString().slice(1);
         console.log(content)
 
+        cities, administration = []
+
         // document.querySelector('#test').style.width = document.querySelector('.panel').style.width;
 
-        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/NAZWA ")
+        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/NAZWA")
+        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/NAZWA_DOD")
     }
 
 }
