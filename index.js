@@ -19,14 +19,17 @@ const xmlActionGroup = (xml) => {
     const city = document.querySelector('#city')
 
     let cities = []
-    let administration = []
+    let county = []
+    let voivodeship = []
 
     const execute = (path) => {
         let output = "";
         let index = 0;
 
         if (path.endsWith('/NAZWA')) cities = []
-        if (path.endsWith('/NAZWA_DOD')) administration = []
+        if (path.endsWith('/POW')) county = []
+        if (path.endsWith('/WOJ')) voivodeship = []
+
 
         if (xml.evaluate) {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
@@ -34,7 +37,8 @@ const xmlActionGroup = (xml) => {
             while (result) {
                 console.log(result)
                 if (path.endsWith('/NAZWA')) cities.push(result.childNodes[0].nodeValue)
-                if (path.endsWith('/NAZWA_DOD')) administration.push(result.childNodes[0].nodeValue)
+                if (path.endsWith('/POW')) county.push(result.childNodes[0].nodeValue)
+                if (path.endsWith('/WOJ')) voivodeship.push(result.childNodes[0].nodeValue)
                 result = nodes.iterateNext()
                 index++;
             }
@@ -46,7 +50,7 @@ const xmlActionGroup = (xml) => {
                 document.querySelector('#test').innerHTML += cities[i] + ', ' + administration[i] + '<br />'
             }
         }
-        console.log(cities, administration)
+        console.log(cities, county, voivodeship)
 
         // if (city.value.length > 0) {
         //     document.querySelector('#test').innerHTML = output;
@@ -75,7 +79,9 @@ const xmlActionGroup = (xml) => {
         // document.querySelector('#test').style.width = document.querySelector('.panel').style.width;
 
         execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/NAZWA")
-        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/NAZWA_DOD")
+        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/POW")
+        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/WOJ")
+
     }
 
 }
