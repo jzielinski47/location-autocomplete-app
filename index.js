@@ -26,22 +26,21 @@ const xmlActionGroup = (xml) => {
         let output = "";
         let index = 0;
 
-        if (path.endsWith('/NAZWA')) cities = []
-        if (path.endsWith('/POW')) county = []
-        if (path.endsWith('/WOJ')) voivodeship = []
+        if (path.endsWith(')]/NAZWA')) { cities = [] }
+        if (path.endsWith('/POW')) { county = [] }
+        if (path.endsWith('/WOJ')) { voivodeship = [] }
 
 
         if (xml.evaluate) {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
             let result = nodes.iterateNext();
             while (result) {
-                console.log(result)
-                if (path.endsWith(')]/NAZWA')) cities.push(result.childNodes[0].nodeValue)
-                if (path.endsWith('/POW')) execute("//row[NAZWA_DOD='powiat' and POW='" + result.childNodes[0].nodeValue + "']/NAZWA")
-                if (path.endsWith('/WOJ')) execute("//row[NAZWA_DOD='województwo' and WOJ='" + result.childNodes[0].nodeValue + "']/NAZWA")
-
-                if (path.endsWith('WOJ='" + result.childNodes[0].nodeValue + "']/NAZWA')) voivodeship.push(result.childNodes[0].nodeValue)
-                if (path.endsWith("POW='" + result.childNodes[0].nodeValue + "']/NAZWA")) county.push(result.childNodes[0].nodeValue)
+                // console.log(result)
+                if (path.endsWith(')]/NAZWA')) { cities.push(result.childNodes[0].nodeValue) }
+                else if (path.endsWith('/POW')) { execute("//row[NAZWA_DOD='powiat' and POW='" + result.childNodes[0].nodeValue + "']/NAZWA") }
+                else if (path.endsWith('/WOJ')) { execute("//row[NAZWA_DOD='województwo' and WOJ='" + result.childNodes[0].nodeValue + "']/NAZWA") }
+                else if (path.includes('WOJ')) { voivodeship.push(result.childNodes[0].nodeValue) }
+                else if (path.includes('POW')) { county.push(result.childNodes[0].nodeValue) }
 
                 result = nodes.iterateNext()
                 index++;
@@ -54,7 +53,7 @@ const xmlActionGroup = (xml) => {
                 document.querySelector('#test').innerHTML += cities[i] + ', ' + county[i] + ', ' + voivodeship[i] + '<br />'
             }
         }
-        console.log(cities, county, voivodeship)
+        // console.log(cities, county, voivodeship)
 
         // if (city.value.length > 0) {
         //     document.querySelector('#test').innerHTML = output;
