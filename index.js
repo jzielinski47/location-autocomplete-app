@@ -41,6 +41,9 @@ const xmlActionGroup = (xml) => {
                 // else if (path.endsWith('/WOJ')) { execute("//row[NAZWA_DOD='województwo' and WOJ='" + result.childNodes[0].nodeValue + "']/NAZWA") }
                 // else if (path.includes('WOJ')) { voivodeship.push(result.childNodes[0].nodeValue) }
                 // else if (path.includes('POW')) { county.push(result.childNodes[0].nodeValue) }
+                else if (path.endsWith('/POW')) { county.push(result.childNodes[0].nodeValue) }
+                else if (path.endsWith('/WOJ')) { voivodeship.push(result.childNodes[0].nodeValue) }
+
 
                 result = nodes.iterateNext()
                 index++;
