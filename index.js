@@ -46,11 +46,7 @@ const xmlActionGroup = (xml) => {
         execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/NAZWA ")
     }
 
-
-
 }
-
-
 
 establishConnection()
 
