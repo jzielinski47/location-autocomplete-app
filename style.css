@@ -45,6 +45,7 @@ body {
     padding: 40px 60px;
     gap: 1em;
 
+    min-width: 370px;
     max-width: 390px;
     max-height: 200px;
 
@@ -123,8 +124,9 @@ footer {
 }
 
 #test {
-    width: fit-content;
-    /* height: 10px; */    
+    /* height: 10px; */
+    min-width: 370px;
+    max-width: 390px;
     text-align: left;
 }
 
