@@ -1,3 +1,5 @@
+// copyright Jakub Zieliński (github.com/jzielinski47)
+
 const establishConnection = () => {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -35,15 +37,12 @@ const xmlActionGroup = (xml) => {
 
     }
 
-    // małopolskie
+    // małopolskie 
+    // test (62 rekordy)
     // execute("//row[(NAZWA_DOD='miasto' or NAZWA_DOD='gmina miejska') and WOJ='12']/NAZWA")
 
     // cała Polska
     // execute("//row[(NAZWA_DOD='miasto' or NAZWA_DOD='gmina miejska')]/NAZWA")
-
-
-
-
 
     city.addEventListener('input', updateResults);
 
@@ -64,3 +63,78 @@ establishConnection()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ...
