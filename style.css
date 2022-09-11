@@ -112,3 +112,7 @@ footer {
     text-align: center;
     padding: 1em;
 }
+
+#test {
+    width: fit-content;
+}

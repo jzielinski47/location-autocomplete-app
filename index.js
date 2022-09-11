@@ -29,6 +29,8 @@ const xmlActionGroup = (xml) => {
         if (city.value.length > 0) {
             document.querySelector('#test').innerHTML = output;
             console.log(output)
+        } else {
+            document.querySelector('#test').innerHTML = ''
         }
 
     }
