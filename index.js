@@ -12,6 +12,8 @@ const establishConnection = () => {
 
 const xmlActionGroup = (xml) => {
 
+    const city = document.querySelector('#city')
+
     const execute = (path) => {
         let output = "";
         if (xml.evaluate) {
@@ -24,8 +26,11 @@ const xmlActionGroup = (xml) => {
             }
         }
 
-        document.querySelector('#test').innerHTML = output;
-        console.log(output)
+        if (city.value.length > 0) {
+            document.querySelector('#test').innerHTML = output;
+            console.log(output)
+        }
+
     }
 
     // małopolskie
@@ -34,7 +39,10 @@ const xmlActionGroup = (xml) => {
     // cała Polska
     // execute("//row[(NAZWA_DOD='miasto' or NAZWA_DOD='gmina miejska')]/NAZWA")
 
-    const city = document.querySelector('#city')
+
+
+
+
     city.addEventListener('input', updateResults);
 
     function updateResults(e) {
