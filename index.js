@@ -17,11 +17,9 @@ const xmlActionGroup = (xml) => {
         if (xml.evaluate) {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
             let result = nodes.iterateNext();
-            let i = 1;
             while (result) {
                 console.log(result)
                 output += result.childNodes[0].nodeValue + '<br />'
-
                 result = nodes.iterateNext()
             }
         }
@@ -35,7 +33,6 @@ const xmlActionGroup = (xml) => {
 
     // cała Polska
     execute("//row[(NAZWA_DOD='miasto' or NAZWA_DOD='gmina miejska')]/NAZWA")
-    // execute()
 
 }
 
