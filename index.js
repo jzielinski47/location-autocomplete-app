@@ -40,8 +40,8 @@ const xmlActionGroup = (xml) => {
                 if (path.endsWith('/POW')) execute("//row[NAZWA_DOD='powiat' and POW='" + result.childNodes[0].nodeValue + "']/NAZWA")
                 if (path.endsWith('/WOJ')) execute("//row[NAZWA_DOD='województwo' and WOJ='" + result.childNodes[0].nodeValue + "']/NAZWA")
 
-                if (path.endsWith(']/WOJ')) voivodeship.push(result.childNodes[0].nodeValue)
-                if (path.endsWith("']/NAZWA")) county.push(result.childNodes[0].nodeValue)
+                if (path.endsWith('WOJ='" + result.childNodes[0].nodeValue + "']/NAZWA')) voivodeship.push(result.childNodes[0].nodeValue)
+                if (path.endsWith("POW='" + result.childNodes[0].nodeValue + "']/NAZWA")) county.push(result.childNodes[0].nodeValue)
 
                 result = nodes.iterateNext()
                 index++;
