@@ -23,6 +23,7 @@ const xmlActionGroup = (xml) => {
 
     const execute = (path) => {
         let output = "";
+        let index = 0;
         if (xml.evaluate) {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
             let result = nodes.iterateNext();
@@ -31,7 +32,13 @@ const xmlActionGroup = (xml) => {
                 if (path.endsWith('/NAZWA')) cities.push(result.childNodes[0].nodeValue)
                 if (path.endsWith('/NAZWA_DOD')) administration.push(result.childNodes[0].nodeValue)
                 result = nodes.iterateNext()
+                index++;
             }
+        }
+
+        document.querySelector('#test').innerHTML = ''
+        for (let i = 0; i < index; i++) {
+            document.querySelector('#test').innerHTML = cities[i] + ', ' + administration[i]
         }
 
         if (city.value.length > 0) {
