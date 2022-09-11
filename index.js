@@ -42,7 +42,7 @@ const xmlActionGroup = (xml) => {
         content = content.toString().charAt(0).toUpperCase() + content.toString().slice(1);
         console.log(content)
 
-        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and (starts-with(NAZWA_DOD='miasto') or NAZWA_DOD='miasto' or NAZWA_DOD='gmina miejska')]/NAZWA ")
+        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and (starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='gmina miejska')]/NAZWA ")
     }
 
 
