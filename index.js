@@ -24,6 +24,10 @@ const xmlActionGroup = (xml) => {
     const execute = (path) => {
         let output = "";
         let index = 0;
+
+        if (path.endsWith('/NAZWA')) cities = []
+        if (path.endsWith('/NAZWA_DOD')) administration = []
+
         if (xml.evaluate) {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
             let result = nodes.iterateNext();
@@ -37,16 +41,19 @@ const xmlActionGroup = (xml) => {
         }
 
         document.querySelector('#test').innerHTML = ''
-        for (let i = 0; i < index; i++) {
-            document.querySelector('#test').innerHTML = cities[i] + ', ' + administration[i]
-        }
-
         if (city.value.length > 0) {
-            document.querySelector('#test').innerHTML = output;
-            console.log(output)
-        } else {
-            document.querySelector('#test').innerHTML = ''
+            for (let i = 0; i < index; i++) {
+                document.querySelector('#test').innerHTML += cities[i] + ', ' + administration[i] + '<br />'
+            }
         }
+        console.log(cities, administration)
+
+        // if (city.value.length > 0) {
+        //     document.querySelector('#test').innerHTML = output;
+        //     console.log(output)
+        // } else {
+        //     document.querySelector('#test').innerHTML = ''
+        // }
 
     }
 
@@ -64,8 +71,6 @@ const xmlActionGroup = (xml) => {
         content.toLowerCase()
         content = content.toString().charAt(0).toUpperCase() + content.toString().slice(1);
         console.log(content)
-
-        cities, administration = []
 
         // document.querySelector('#test').style.width = document.querySelector('.panel').style.width;
 
