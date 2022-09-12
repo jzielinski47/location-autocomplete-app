@@ -98,6 +98,8 @@ const xmlActionGroup = (xml) => {
         modifiedSearch("//row[NAZWA_DOD='województwo']/WOJ", voivodeshipIndexList)
         modifiedSearch("//row[NAZWA_DOD='województwo']/NAZWA", voivodeshipNamesList)
 
+        // powiaty potrzebuja naprawy
+
         modifiedSearch("//row[NAZWA_DOD='powiat' and WOJ='12']/POW", countyIndexList)
         modifiedSearch("//row[NAZWA_DOD='powiat' and WOJ='12']/NAZWA", countyNamesList)
     }
