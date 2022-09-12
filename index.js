@@ -1,6 +1,10 @@
 // copyright Jakub Zieliński (github.com/jzielinski47)
 
+let countyIndexList = []
+let countyNamesList = []
 
+let voivodeshipIndexList = []
+let voivodeshipNamesList = []
 
 const establishConnection = () => {
     const xhttp = new XMLHttpRequest();
@@ -36,11 +40,7 @@ const xmlActionGroup = (xml) => {
             let result = nodes.iterateNext();
             while (result) {
                 // console.log(result)
-                if (path.endsWith(')]/NAZWA')) { cities.push(result.childNodes[0].nodeValue) }
-                // else if (path.endsWith('/POW')) { execute("//row[NAZWA_DOD='powiat' and POW='" + result.childNodes[0].nodeValue + "']/NAZWA") }
-                // else if (path.endsWith('/WOJ')) { execute("//row[NAZWA_DOD='województwo' and WOJ='" + result.childNodes[0].nodeValue + "']/NAZWA") }
-                // else if (path.includes('WOJ')) { voivodeship.push(result.childNodes[0].nodeValue) }
-                // else if (path.includes('POW')) { county.push(result.childNodes[0].nodeValue) }
+                if (path.endsWith('/NAZWA')) { cities.push(result.childNodes[0].nodeValue) }
                 else if (path.endsWith('/POW')) { county.push(result.childNodes[0].nodeValue) }
                 else if (path.endsWith('/WOJ')) { voivodeship.push(result.childNodes[0].nodeValue) }
 
@@ -53,7 +53,8 @@ const xmlActionGroup = (xml) => {
         document.querySelector('#test').innerHTML = ''
         if (city.value.length > 0) {
             for (let i = 0; i < index; i++) {
-                document.querySelector('#test').innerHTML += cities[i] + ', ' + county[i] + ', ' + voivodeship[i] + '<br />'
+                document.querySelector('#test').innerHTML += cities[i] + ', ' + countyNamesList[countyIndexList.indexOf(county[i])] + ', ' + voivodeshipNamesList[voivodeshipIndexList.indexOf(voivodeship[i])] + '<br />'
+                console.log(county[i], voivodeship[i], city[i])
             }
         }
         // console.log(cities, county, voivodeship)
@@ -65,6 +66,40 @@ const xmlActionGroup = (xml) => {
         //     document.querySelector('#test').innerHTML = ''
         // }
 
+    }
+
+    const search = (path) => {
+
+        if (xml.evaluate) {
+            const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+            let result = nodes.iterateNext();
+            result = nodes.iterateNext()
+            while (result) {
+                console.log(result.childNodes[0].nodeValue)
+                result = nodes.iterateNext()
+            }
+        }
+    }
+
+    function modifiedSearch(path, dist) {
+
+        if (xml.evaluate) {
+            const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+            let result = nodes.iterateNext();
+            result = nodes.iterateNext()
+            while (result) {
+                dist.push(result.childNodes[0].nodeValue)
+                result = nodes.iterateNext()
+            }
+        }
+    }
+
+    const initAdministration = () => {
+        modifiedSearch("//row[NAZWA_DOD='województwo']/WOJ", voivodeshipIndexList)
+        modifiedSearch("//row[NAZWA_DOD='województwo']/NAZWA", voivodeshipNamesList)
+
+        modifiedSearch("//row[NAZWA_DOD='powiat' and WOJ='12']/POW", countyIndexList)
+        modifiedSearch("//row[NAZWA_DOD='powiat' and WOJ='12']/NAZWA", countyNamesList)
     }
 
     // małopolskie 
@@ -88,10 +123,14 @@ const xmlActionGroup = (xml) => {
         execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/POW")
         execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/WOJ")
 
+
     }
+
+    initAdministration()
 
 }
 
 window.onload = () => {
     establishConnection()
 }
+
