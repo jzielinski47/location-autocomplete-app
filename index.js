@@ -41,8 +41,8 @@ const xmlActionGroup = (xml) => {
             while (result) {
                 // console.log(result)
                 if (path.endsWith('/NAZWA')) { cities.push(result.childNodes[0].nodeValue) }
-                else if (path.endsWith('/POW')) { county.push(result.childNodes[0].nodeValue) }
                 else if (path.endsWith('/WOJ')) { voivodeship.push(result.childNodes[0].nodeValue) }
+                else if (path.endsWith('/POW')) { county.push(result.childNodes[0].nodeValue) }
 
 
                 result = nodes.iterateNext()
