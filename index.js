@@ -51,11 +51,14 @@ const xmlActionGroup = (xml) => {
         }
 
         document.querySelector('#test').innerHTML = ''
+        let w = "";
         if (city.value.length > 0) {
             for (let i = 0; i < index; i++) {
-                document.querySelector('#test').innerHTML += cities[i] + ', ' + countyNamesList[countyIndexList.indexOf(county[i])] + ', ' + voivodeshipNamesList[voivodeshipIndexList.indexOf(voivodeship[i])] + '<br />'
-                console.log(county[i], voivodeship[i], city[i])
+                console.log("l:",cities[i], countyNamesList[countyIndexList.indexOf(county[i])], voivodeshipNamesList[voivodeshipIndexList.indexOf(voivodeship[i])])
+                w += cities[i] + ', ' + 'a'+ ', ' + 'a' + '<br />'
             }
+            console.log(w);
+            document.querySelector('#test').innerHTML = w;
         }
         // console.log(cities, county, voivodeship)
 
@@ -121,9 +124,9 @@ const xmlActionGroup = (xml) => {
 
         // document.querySelector('#test').style.width = document.querySelector('.panel').style.width;
 
-        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/NAZWA")
-        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/POW")
-        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((starts-with(NAZWA_DOD,'miasto') or NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska')]/WOJ")
+        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska' or RODZ='1' or RODZ='3')]/NAZWA")
+        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska' or RODZ='1' or RODZ='3')]/POW")
+        execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((sNAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska' or RODZ='1' or RODZ='3')]/WOJ")
 
 
     }
