@@ -55,7 +55,7 @@ const xmlActionGroup = (xml) => {
         if (city.value.length > 0) {
             for (let i = 0; i < index; i++) {
                 console.log("l:",cities[i], countyNamesList[countyIndexList.indexOf(county[i])], voivodeshipNamesList[voivodeshipIndexList.indexOf(voivodeship[i])])
-                w += cities[i] + ', ' + 'a'+ ', ' + 'a' + '<br />'
+                w += cities[i] + ', ' + search("row[NAZWA_DOD='powiat' and POW='" + county[i] + "' and WOJ='"+ voivodeship[i]+"']/NAZWA") + ', ' + voivodeshipNamesList[voivodeshipIndexList.indexOf(voivodeship[i])] + '<br />'
             }
             console.log(w);
             document.querySelector('#test').innerHTML = w;
@@ -71,7 +71,7 @@ const xmlActionGroup = (xml) => {
 
     }
 
-    const search = (path) => {
+    function search(path) {
 
         if (xml.evaluate) {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
@@ -92,6 +92,18 @@ const xmlActionGroup = (xml) => {
             result = nodes.iterateNext()
             while (result) {
                 dist.push(result.childNodes[0].nodeValue)
+                result = nodes.iterateNext()
+            }
+        }
+    }
+
+    function search(path) {
+        if (xml.evaluate) {
+            const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+            let result = nodes.iterateNext();
+            result = nodes.iterateNext()
+            while (result) {
+                return result.childNodes[0].nodeValue;
                 result = nodes.iterateNext()
             }
         }
