@@ -1,11 +1,5 @@
 // copyright Jakub Zieliński (github.com/jzielinski47)
 
-let countyIndexList = []
-let countyNamesList = []
-
-let voivodeshipIndexList = []
-let voivodeshipNamesList = []
-
 const establishConnection = () => {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -21,10 +15,6 @@ const establishConnection = () => {
 const xmlActionGroup = (xml) => {
 
     const city = document.querySelector('#city')
-
-    let cities = []
-    let county = []
-    let voivodeship = []
 
     const execute = (path) => {
         let output = "";
