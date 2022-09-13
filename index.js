@@ -19,6 +19,7 @@ const xmlActionGroup = (xml) => {
     const city = document.querySelector('#city')
     const dist = document.querySelector('#dist')
 
+    // an idea to use an object oriented search
     let object = { city: null, county: null, voivodeship: null }
 
     function execute(path) {
@@ -32,16 +33,27 @@ const xmlActionGroup = (xml) => {
 
                 const value = result.childNodes[0].nodeValue
 
-                if (path.endsWith('/NAZWA')) object.city = value;
-                if (path.endsWith('/WOJ')) object.voivodeship = value;
-                if (path.endsWith('/POW')) object.county = value;               
+                if (path.endsWith('/NAZWA')) {
+                    object.city = value;
+                    output += `${object.city}, `;
+                }
+
+                if (path.endsWith('/POW')) {
+                    object.county = value;
+                    output += `${object.county}, `;
+                }
+
+                if (path.endsWith('/WOJ')) {
+                    object.voivodeship = search(`//row[NAZWA_DOD="województwo" and WOJ='${value}']/NAZWA`);
+                    output += `${object.voivodeship} <br>`;
+                }
 
                 result = nodes.iterateNext()
 
             }
         }
 
-        dist.innerHTML = output
+        console.log(output)
 
     }
 
