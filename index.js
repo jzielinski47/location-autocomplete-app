@@ -19,9 +19,11 @@ const xmlActionGroup = (xml) => {
     const city = document.querySelector('#city')
     const dist = document.querySelector('#dist')
 
-    let object = { city: "", county: "", voivodeship: "" }
+    let object = { city: null, county: null, voivodeship: null }
 
     function execute(path) {
+
+        let output = ''
 
         if (xml.evaluate) {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
@@ -30,14 +32,16 @@ const xmlActionGroup = (xml) => {
 
                 const value = result.childNodes[0].nodeValue
 
-
+                if (path.endsWith('/NAZWA')) object.city = value;
+                if (path.endsWith('/WOJ')) object.voivodeship = value;
+                if (path.endsWith('/POW')) object.county = value;               
 
                 result = nodes.iterateNext()
 
             }
         }
 
-        dist.innerHTML = `${object.city}, ${object.county}, ${object.voivodeship}`;
+        dist.innerHTML = output
 
     }
 
