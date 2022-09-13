@@ -1,5 +1,7 @@
 // copyright Jakub Zieliński (github.com/jzielinski47)
 
+let tempMemory = []
+
 const establishConnection = () => {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -15,33 +17,50 @@ const establishConnection = () => {
 const xmlActionGroup = (xml) => {
 
     const city = document.querySelector('#city')
+    const dist = document.querySelector('#dist')
 
-    const execute = (path) => {
+    let object = { city: "", county: "", voivodeship: "" }
 
-        let output = "";
+    function execute(path) {
 
         if (xml.evaluate) {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
             let result = nodes.iterateNext();
             while (result) {
 
-                output += result.childNodes[0].nodeValue + '<br>'
+                const value = result.childNodes[0].nodeValue
+
+
 
                 result = nodes.iterateNext()
 
             }
         }
 
-        document.querySelector('#test').innerHTML = output;
+        dist.innerHTML = `${object.city}, ${object.county}, ${object.voivodeship}`;
 
+    }
+
+    function search(path) {
+        if (xml.evaluate) {
+            const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+            let result = nodes.iterateNext();
+            while (result) {
+                return result.childNodes[0].nodeValue
+                result = nodes.iterateNext()
+            }
+        }
     }
 
     // małopolskie 
     // test (62 rekordy)
     // execute("//row[(NAZWA_DOD='miasto' or NAZWA_DOD='gmina miejska') and WOJ='12']/NAZWA")
+    // execute(`//row[(RODZ='1' or RODZ='3') and WOJ='12']/NAZWA`)
 
     // cała Polska
     // execute("//row[(NAZWA_DOD='miasto' or NAZWA_DOD='gmina miejska')]/NAZWA")
+
+
 
     city.addEventListener('input', updateResults);
 
@@ -49,13 +68,15 @@ const xmlActionGroup = (xml) => {
         let content = e.target.value;
         content.toLowerCase()
         content = content.toString().charAt(0).toUpperCase() + content.toString().slice(1);
-        console.log(content)
+        console.log('on-input:', content)
 
         // execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska' or RODZ='1' or RODZ='3')]/NAZWA")
         // execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((NAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska' or RODZ='1' or RODZ='3')]/POW")
         // execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((sNAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska' or RODZ='1' or RODZ='3')]/WOJ")
 
         execute(`//row[starts-with(NAZWA,'${content.toString()}') and (RODZ='1' or RODZ='3')]/NAZWA`)
+        execute(`//row[starts-with(NAZWA,'${content.toString()}') and (RODZ='1' or RODZ='3')]/POW`)
+        execute(`//row[starts-with(NAZWA,'${content.toString()}') and (RODZ='1' or RODZ='3')]/WOJ`)
 
 
     }
