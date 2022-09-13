@@ -35,17 +35,17 @@ const xmlActionGroup = (xml) => {
 
                 if (path.endsWith('/NAZWA')) {
                     object.city = value;
-                    output += `${object.city}, `;
-                }
-
-                if (path.endsWith('/POW')) {
-                    object.county = value;
-                    output += `${object.county}, `;
+                    output += `${object.city}`;
                 }
 
                 if (path.endsWith('/WOJ')) {
                     object.voivodeship = search(`//row[NAZWA_DOD="województwo" and WOJ='${value}']/NAZWA`);
-                    output += `${object.voivodeship} <br>`;
+                    output += `${object.voivodeship}`;
+                }
+
+                if (path.endsWith('/POW')) {
+                    object.county = search(`//row[NAZWA_DOD="powiat" and WOJ='${object.voivodeship}' and POW='${value}']/NAZWA`);;
+                    output += `${object.county}`;
                 }
 
                 result = nodes.iterateNext()
@@ -91,8 +91,8 @@ const xmlActionGroup = (xml) => {
         // execute("//row[starts-with(NAZWA,'" + content.toString() + "') and ((sNAZWA_DOD='miasto') or NAZWA_DOD='gmina miejska' or RODZ='1' or RODZ='3')]/WOJ")
 
         execute(`//row[starts-with(NAZWA,'${content.toString()}') and (RODZ='1' or RODZ='3')]/NAZWA`)
-        execute(`//row[starts-with(NAZWA,'${content.toString()}') and (RODZ='1' or RODZ='3')]/POW`)
         execute(`//row[starts-with(NAZWA,'${content.toString()}') and (RODZ='1' or RODZ='3')]/WOJ`)
+        execute(`//row[starts-with(NAZWA,'${content.toString()}') and (RODZ='1' or RODZ='3')]/POW`)
 
 
     }
