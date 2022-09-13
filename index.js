@@ -65,6 +65,7 @@ const xmlActionGroup = (xml) => {
         // } else {
         //     document.querySelector('#test').innerHTML = ''
         // }
+        //...
 
     }
 
