@@ -51,6 +51,8 @@ const xmlActionGroup = (xml) => {
         if (content.length > 0) {
             dist.innerHTML = ''
             searchCityName(`//row[(RODZ='1' or RODZ='3') and starts-with(NAZWA,'${content}')]/NAZWA`)
+        } else {
+            dist.innerHTML = ''
         }
 
     });
