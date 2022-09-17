@@ -3,13 +3,18 @@ class City {
         this.xml = xml;
 
         this.name = name.toString();
-        this.voivodeship = this.searchVoivodeshipName(`//row[(RODZ='1' or RODZ='3') and NAZWA='${this.name}']/WOJ`);
-        this.county = this.searchVoivodeshipName(`//row[(RODZ='1' or RODZ='3') and NAZWA='${this.name}' and WOJ='${this.voivodeship}']/POW`);
+        this.voivodeship = this.search(`//row[(RODZ='1' or RODZ='3') and NAZWA='${this.name}']/WOJ`);
+        this.county = this.search(`//row[(RODZ='1' or RODZ='3') and NAZWA='${this.name}' and WOJ='${this.voivodeship}']/POW`);
 
-        this.vname;
+        this.vname = this.search(`//row[NAZWA_DOD='województwo' and WOJ='${this.voivodeship}']/NAZWA`);
+        this.cname = this.search(`//row[(NAZWA_DOD='powiat')and WOJ='${this.voivodeship}' and POW=${this.county}]/NAZWA`);
+
+        // or contains(NAZWA_DOD,'na prawach powiatu') 
+
+        console.log(this.vname, this.cname)
     }
 
-    searchVoivodeshipName = (path) => {
+    search = (path) => {
         if (this.xml.evaluate) {
             const nodes = this.xml.evaluate(path, this.xml, null, XPathResult.ANY_TYPE, null);
             let result = nodes.iterateNext();
@@ -19,25 +24,9 @@ class City {
                 result = nodes.iterateNext()
             }
         }
-    }
-
-    searchCountyName = (path) => {
-        if (this.xml.evaluate) {
-            const nodes = this.xml.evaluate(path, this.xml, null, XPathResult.ANY_TYPE, null);
-            let result = nodes.iterateNext();
-            while (result) {
-                // console.log(result)
-                return result.childNodes[0].nodeValue
-                result = nodes.iterateNext()
-            }
-        }
-    }
-
-    rereadNames = () => {
-
     }
 
     display = () => {
-        document.querySelector('#dist').innerHTML += `${this.name}, ${this.voivodeship}, ${this.county} <br>`
+        document.querySelector('#dist').innerHTML += `${this.name}, ${this.cname}, ${this.vname} <br>`
     }
 }

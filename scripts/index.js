@@ -63,6 +63,8 @@ const xmlActionGroup = (xml) => {
     // search(`//row[(RODZ='1' or RODZ='3') and WOJ='12']/NAZWA`)
 
 
+    search(`//row[POW='65']/NAZWA`)
+
 }
 
 
