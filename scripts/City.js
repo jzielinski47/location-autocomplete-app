@@ -1,4 +1,4 @@
-export class City {
+class City {
     constructor(name, xml) {
         this.xml = xml;
 
