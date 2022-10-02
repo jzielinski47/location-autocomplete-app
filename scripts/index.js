@@ -34,9 +34,14 @@ const xmlActionGroup = (xml) => {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
             let result = nodes.iterateNext();
             while (result) {
-                console.log(result.childNodes[0].nodeValue)
-                let city = new City(result.childNodes[0].nodeValue, xml)
-                city.display()
+                if (!result.childNodes[0].nodeValue.includes('-')) {
+                    let city = new City(result.childNodes[0].nodeValue, xml)
+                    city.display()
+                } else {
+                    document.querySelector('#dist').innerHTML += `${result.childNodes[0].nodeValue} <br>`
+                }
+                // console.log(result.childNodes[0].nodeValue)
+
                 result = nodes.iterateNext();
             }
         }
@@ -50,7 +55,7 @@ const xmlActionGroup = (xml) => {
 
         if (content.length > 0) {
             dist.innerHTML = ''
-            searchCityName(`//row[(RODZ='1' or RODZ='3') and starts-with(NAZWA,'${content}')]/NAZWA`)
+            searchCityName(`//row[(RODZ='1' or RODZ='3' or RODZ='9') and starts-with(NAZWA,'${content}')]/NAZWA`)
         } else {
             dist.innerHTML = ''
         }
