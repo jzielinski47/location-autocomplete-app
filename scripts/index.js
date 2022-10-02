@@ -34,12 +34,10 @@ const xmlActionGroup = (xml) => {
             const nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
             let result = nodes.iterateNext();
             while (result) {
-                if (!result.childNodes[0].nodeValue.includes('-')) {
-                    let city = new City(result.childNodes[0].nodeValue, xml)
-                    city.display()
-                } else {
-                    document.querySelector('#dist').innerHTML += `${result.childNodes[0].nodeValue} <br>`
-                }
+
+                let city = new City(result.childNodes[0].nodeValue, xml)
+                city.display()
+
                 // console.log(result.childNodes[0].nodeValue)
 
                 result = nodes.iterateNext();
@@ -68,9 +66,6 @@ const xmlActionGroup = (xml) => {
 
     // cała polska
     // search(`//row[(RODZ='1' or RODZ='3') and WOJ='12']/NAZWA`)
-
-
-    search(`//row[POW='65']/NAZWA`)
 
 }
 

@@ -1,10 +1,10 @@
-class City {
+export class City {
     constructor(name, xml) {
         this.xml = xml;
 
         this.name = name.toString();
-        this.voivodeship = this.search(`//row[(RODZ='1' or RODZ='3') and NAZWA='${this.name}']/WOJ`);
-        this.county = this.search(`//row[(RODZ='1' or RODZ='3') and NAZWA='${this.name}' and WOJ='${this.voivodeship}']/POW`);
+        this.voivodeship = this.search(`//row[(RODZ='1' or RODZ='3' or RODZ='9') and NAZWA='${this.name}']/WOJ`);
+        this.county = this.search(`//row[(RODZ='1' or RODZ='3' or RODZ='9') and NAZWA='${this.name}' and WOJ='${this.voivodeship}']/POW`);
 
         this.vname = this.search(`//row[NAZWA_DOD='województwo' and WOJ='${this.voivodeship}']/NAZWA`);
         this.cname = this.search(`//row[(NAZWA_DOD='powiat' or contains(NAZWA_DOD,'na prawach powiatu'))and WOJ='${this.voivodeship}' and POW=${this.county}]/NAZWA`);
