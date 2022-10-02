@@ -143,3 +143,7 @@ footer {
         transform: translateY(0px);
     }
 }
+
+.suggestion:hover {
+    color: var(--primary-color)
+}

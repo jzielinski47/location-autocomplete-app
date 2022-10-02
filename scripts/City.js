@@ -27,6 +27,16 @@ class City {
     }
 
     display = () => {
-        document.querySelector('#dist').innerHTML += `${this.name}, ${this.cname}, ${this.vname} <br>`
+
+        let div = document.createElement('div')
+        const content = `${this.name}, ${this.cname}, ${this.vname}`
+        div.className = 'suggestion'
+
+        div.innerHTML = content
+        div.onclick = () => {
+            document.querySelector('#city').value = content
+        }
+
+        document.querySelector('#dist').append(div)
     }
 }
